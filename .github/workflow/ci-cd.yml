@@ -1,0 +1,35 @@
+name: Ci-Cd pipeline
+
+on:
+ push:
+ branches:
+ -main
+
+ jobs:
+  Test:
+   runs-on:ubuntu-latest
+   steps:
+    -name:git clone
+     uses:actions/checkout@v7
+    -name:install nodejs
+     uses: actions/checkout@v4
+    -name:install packages
+     run:|
+     sudo apt update
+     sudo apt install nginx
+     npm install
+    -name:run the Test
+     run:npm run test  
+
+  Deploy:
+  runs-on:ubuntu-latest
+  needs:Test
+  steps:
+   -name:ssh command
+    uses:appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: whoami
