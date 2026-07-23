@@ -42,14 +42,15 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            sudo apt update
             whoami
             pwd
             sudo mkdir app
             cd app
-            git pull origin main
-            sudo apt update
+            sudo git clone https://github.com/dipto01911/Ci-Cd.git .
             sudo apt install -y nodejs npm
             sudo npm install -g pm2
+            npm install
             pm2 -v
             sudo npm start
             sudo pm2 start "npm start" --name ="App 5000"
