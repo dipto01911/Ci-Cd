@@ -48,3 +48,6 @@ jobs:
             sudo apt install -y nodejs npm
             sudo npm install -g pm2
             pm2 -v
+            npm start
+            pm2 start "npm start" --name ="App 5000"
+            
