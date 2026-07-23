@@ -54,6 +54,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
          name: test.txt
+      - name : Display articaft  
         run: |
          ls -l 
          cat test.txt 
