@@ -8,7 +8,7 @@ on:
 
 jobs:
   Test:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Git Clone
@@ -29,7 +29,7 @@ jobs:
         run: npm run test > test.txt
       
       - name: upload artifact
-        uses : astertom/nexus-upload-artifact@v1
+        uses : actions/upload-artifact@v4
         with:
         path : ./test.txt
 
@@ -50,8 +50,9 @@ jobs:
           ls -la
 
       - name: download artifact
-        uses: aochmann/actions-download-artifact@1.0.0
+        uses: actions/download-artifact@v4
         with:
          name:test.txt
         run: |
-        cat test.txt 
+         ls -l 
+         cat test.txt 
