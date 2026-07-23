@@ -31,7 +31,8 @@ jobs:
       - name: upload artifact
         uses : actions/upload-artifact@v4
         with:
-        path : ./test.txt
+         name: test-result
+         path : ./test.txt
 
 
   Deploy:
@@ -52,7 +53,7 @@ jobs:
       - name: download artifact
         uses: actions/download-artifact@v4
         with:
-         name:test.txt
+         name: test.txt
         run: |
          ls -l 
          cat test.txt 
