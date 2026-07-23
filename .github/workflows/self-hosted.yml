@@ -26,7 +26,13 @@ jobs:
           npm install
 
       - name: Run Tests
-        run: npm test
+        run: npm run test > test.txt
+      
+      - name: upload artifact
+        uses : astertom/nexus-upload-artifact@v1
+        with:
+        path : ./test.txt
+
 
   Deploy:
     runs-on: self-hosted
@@ -42,3 +48,10 @@ jobs:
           touch hello.txt
           echo "hello world ok" > hello.txt
           ls -la
+
+      - name: download artifact
+        uses: aochmann/actions-download-artifact@1.0.0
+        with:
+         name:test.txt
+        run: |
+        cat test.txt 
