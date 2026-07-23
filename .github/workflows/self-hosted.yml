@@ -1,0 +1,42 @@
+name: CI-CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+    workflow_dispatch:
+
+jobs:
+  Test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Packages
+        run: |
+          sudo apt update
+          sudo apt install -y nginx
+          npm install
+
+      - name: Run Tests
+        run: npm test
+
+  Deploy:
+    runs-on: self-hosted
+    needs: Test
+
+    steps:
+    -name:create A folder
+     run: |
+     cd ~
+     pwd
+     mkdir dipto
+     touch hello.txt
+     echo "hello word ok " > hello.txt
